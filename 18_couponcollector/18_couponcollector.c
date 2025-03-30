@@ -46,5 +46,3 @@ int main(int argc, char *argv[]) {
 // gcc -o 18_couponcollector 18_couponcollector.c
 // ./18_couponcollector 1000
 // 8507
-
-// ./18_couponcollector 1000
