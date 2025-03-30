@@ -21,6 +21,6 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o useargument useargument.c
-// ./useargument Alice
+// gcc -o 02_useargument 02_useargument.c
+// ./02_useargument Alice
 // Hi, Alice. How are you?

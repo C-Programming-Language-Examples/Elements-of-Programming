@@ -23,18 +23,18 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o flip flip.c
-// ./flip
+// gcc -o 08_flip 08_flip.c
+// ./08_flip
 // Heads
 
-// ./flip
+// ./08_flip
 // Tails
 
-// ./flip
+// ./08_flip
 // Heads
 
-// ./flip
+// ./08_flip
 // Heads
 
-// ./flip
+// ./08_flip
 // Heads

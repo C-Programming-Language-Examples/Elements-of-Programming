@@ -55,14 +55,12 @@ int main(int argc, char *argv[]) {
             }
         }
 
-        // Free the dynamically allocated array
         for (int i = 0; i < n; i++) {
             free(a[i]);
         }
         free(a);
     }
 
-    // Print the percentage of dead ends
     printf("%d%% dead ends\n", 100 * deadEnds / trials);
 
     return 0;
@@ -71,27 +69,27 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o selfavoid selfavoid.c
-// ./selfavoid 5 100
+// gcc -o 20_selfavoid 20_selfavoid.c
+// ./20_selfavoid 5 100
 // 0% dead ends
 
-// ./selfavoid 20 100
+// ./20_selfavoid 20 100
 // 27% dead ends
 
-// ./selfavoid 40 100
+// ./20_selfavoid 40 100
 // 80% dead ends
 
-// ./selfavoid 80 100
+// ./20_selfavoid 80 100
 // 96% dead ends
 
-// ./selfavoid 5 1000
+// ./20_selfavoid 5 1000
 // 0% dead ends
 
-// ./selfavoid 20 1000
+// ./20_selfavoid 20 1000
 // 33% dead ends
 
-// ./selfavoid 40 1000
+// ./20_selfavoid 40 1000
 // 77% dead ends
 
-// ./selfavoid 80 1000
+// ./20_selfavoid 80 1000
 // 98% dead ends

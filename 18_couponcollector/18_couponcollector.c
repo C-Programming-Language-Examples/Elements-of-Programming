@@ -43,8 +43,8 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o couponcollector couponcollector.c
-// ./couponcollector 1000
+// gcc -o 18_couponcollector 18_couponcollector.c
+// ./18_couponcollector 1000
 // 8507
 
-// ./couponcollector 1000
+// ./18_couponcollector 1000

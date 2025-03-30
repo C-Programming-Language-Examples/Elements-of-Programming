@@ -41,8 +41,8 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o ruler ruler.c
-// ./ruler
+// gcc -o 03_ruler 03_ruler.c
+// ./03_ruler
 // 1
 // 1 2 1
 // 1 2 1 3 1 2 1

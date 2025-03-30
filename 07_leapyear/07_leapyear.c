@@ -14,15 +14,12 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Convert the command-line argument from string to integer
     int year = atoi(argv[1]);
 
-    // Determine if the year is a leap year
     int isLeapYear = (year % 4 == 0);
     isLeapYear = isLeapYear && (year % 100 != 0);
     isLeapYear = isLeapYear || (year % 400 == 0);
 
-    // Print the result
     if (isLeapYear) {
         printf("True\n");
     } else {
@@ -35,12 +32,12 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o leapyear leapyear.c
-// ./leapyear 2016
+// gcc -o 07_leapyear 07_leapyear.c
+// ./07_leapyear 2016
 // True
 
-// ./leapyear 1900
+// ./07_leapyear 1900
 // False
 
-// ./leapyear 2000
+// ./07_leapyear 2000
 // True

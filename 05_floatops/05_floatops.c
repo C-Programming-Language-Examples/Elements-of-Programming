@@ -19,13 +19,10 @@ int main(int argc, char *argv[]) {
     double a = atof(argv[1]);
     double b = atof(argv[2]);
 
-    // Perform basic arithmetic operations
     double total = a + b;
     double diff = a - b;
     double prod = a * b;
     double quot = a / b;
-
-    // Calculate exponent using the pow function from math.h
     double exp = pow(a, b);
 
     // Print the results in the specified format
@@ -41,8 +38,8 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o floatops floatops.c -lm   // -lm links the math library for pow()
-// ./floatops 123.456 78.9
+// gcc -o 05_floatops 05_floatops.c -lm   // -lm links the math library for pow()
+// ./05_floatops 123.456 78.9
 // 123.456 +  78.9 = 202.356000
 // 123.456 -  78.9 = 44.556000
 // 123.456 *  78.9 = 9740.678400

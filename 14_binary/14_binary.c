@@ -18,7 +18,6 @@ int main(int argc, char *argv[]) {
     // Convert the command-line argument to an integer
     int n = atoi(argv[1]);
 
-    // Handle non-positive integers
     if (n < 0) {
         printf("Error: Negative integers not supported.\n");
         return 1;
@@ -41,7 +40,6 @@ int main(int argc, char *argv[]) {
         v /= 2;
     }
 
-    // Print a newline at the end.
     printf("\n");
 
     return 0;
@@ -50,15 +48,15 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o binary binary.c
-// ./binary 19
+// gcc -o 14_binary 14_binary.c
+// ./14_binary 19
 // 10011
 
-// ./binary 255
+// ./14_binary 255
 // 11111111
 
-// ./binary 512
+// ./14_binary 512
 // 1000000000
 
-// ./binary 1000000000
+// ./14_binary 1000000000
 // 111011100110101100101000000000

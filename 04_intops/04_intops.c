@@ -45,8 +45,8 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o intops intops.c -lm   // -lm links the math library for pow()
-// ./intops 1234 5
+// gcc -o 04_intops 04_intops.c -lm   // -lm links the math library for pow()
+// ./04_intops 1234 5
 // 1234 +  5 = 1239
 // 1234 -  5 = 1229
 // 1234 *  5 = 6170

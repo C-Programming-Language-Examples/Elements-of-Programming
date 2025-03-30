@@ -20,19 +20,15 @@ int main(int argc, char *argv[]) {
     double b = atof(argv[1]);
     double c = atof(argv[2]);
 
-    // Compute the discriminant
     double discriminant = b * b - 4.0 * c;
 
-    // Check if the discriminant is non-negative
     if (discriminant < 0) {
         printf("Error: Math domain error - Negative discriminant.\n");
         return 1;
     }
 
-    // Compute the square root of the discriminant
     double d = sqrt(discriminant);
 
-    // Compute and print the roots
     double root1 = (-b + d) / 2.0;
     double root2 = (-b - d) / 2.0;
 
@@ -45,14 +41,10 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o quadratic quadratic.c -lm
-// ./quadratic -3.0 2.0
+// gcc -o 06_quadratic 06_quadratic.c -lm
+// ./06_quadratic -3.0 2.0
 // 2.000000
 // 1.000000
-
-// ./quadratic -1.0 -1.0
-// 1.618034
-// -0.618034
 
 // ./quadratic 1.0 1.0
 // Error: Math domain error - Negative discriminant.

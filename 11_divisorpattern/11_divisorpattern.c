@@ -17,14 +17,12 @@ int main(int argc, char *argv[]) {
 
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
-            // Print an asterisk if i divides j or j divides i
             if ((i % j == 0) || (j % i == 0)) {
                 printf("* ");
             } else {
                 printf("  ");
             }
         }
-        // Print the row number at the end of the line
         printf("%d\n", i);
     }
 
@@ -34,26 +32,26 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o divisorpattern divisorpattern.c
-// ./divisorpattern 1
+// gcc -o 11_divisorpattern 11_divisorpattern.c
+// ./11_divisorpattern 1
 // * 1
 
-// ./divisorpattern 2
+// ./11_divisorpattern 2
 // * * 1
 // * * 2
 
-// ./divisorpattern 3
+// ./11_divisorpattern 3
 // * * * 1
 // * *   2
 // *   * 3
 
-// ./divisorpattern 4
+// ./11_divisorpattern 4
 // * * * * 1
 // * *   * 2
 // *   *   3
 // * *   * 4
 
-// ./divisorpattern 5
+// ./11_divisorpattern 5
 // * * * * * 1
 // * *   *   2
 // *   *     3

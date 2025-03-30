@@ -13,6 +13,6 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o helloworld helloworld.c
-// ./helloworld
+// gcc -o 01_helloworld 01_helloworld.c
+// ./01_helloworld
 // Hello, World

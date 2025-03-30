@@ -36,7 +36,6 @@ int main(int argc, char *argv[]) {
     }
     fclose(file);
 
-    // Initialize page ranks
     double *ranks = (double *)calloc(n, sizeof(double));
     ranks[0] = 1.0;
 
@@ -48,7 +47,7 @@ int main(int argc, char *argv[]) {
                 newRanks[j] += ranks[k] * probs[k][j];
             }
         }
-        free(ranks); // Free old ranks memory
+        free(ranks); 
         ranks = newRanks;
     }
 
@@ -58,7 +57,6 @@ int main(int argc, char *argv[]) {
     }
     printf("\n");
 
-    // Free allocated memory
     for (int i = 0; i < n; i++) {
         free(probs[i]);
     }
@@ -67,3 +65,7 @@ int main(int argc, char *argv[]) {
 
     return 0;
 }
+
+// Compile and run:
+// gcc -o 29_markov 29_markov.c -lm
+// ./29_markov 20

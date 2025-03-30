@@ -24,9 +24,7 @@ int main(void) {
 
     printf("I am thinking of a secret number between 1 and %d\n", RANGE);
 
-    // Loop until the user guesses the correct number
     while (guess != secret) {
-        // Solicit one guess and provide one answer
         printf("What is your guess? ");
         scanf("%d", &guess);
 
@@ -45,8 +43,8 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o twentyquestions twentyquestions.c
-// ./twentyquestions
+// gcc -o 22_twentyquestions 22_twentyquestions.c
+// ./22_twentyquestions
 // I am thinking of a secret number between 1 and 1000000
 // What is your guess? 500000
 // Too low

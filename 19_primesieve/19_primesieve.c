@@ -50,18 +50,18 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o primesieve primesieve.c
-// ./primesieve 25
+// gcc -o 19_primesieve 19_primesieve.c
+// ./19_primesieve 25
 // 9
 
-// ./primesieve 100
+// ./19_primesieve 100
 // 25
 
-// ./primesieve 10000
+// ./19_primesieve 10000
 // 1229
 
-// ./primesieve 1000000
+// ./19_primesieve 1000000
 // 78498
 
-// ./primesieve 100000000
+// ./19_primesieve 100000000
 // 5761455

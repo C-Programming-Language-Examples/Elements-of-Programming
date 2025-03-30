@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
     int lo = atoi(argv[1]);
     int hi = atoi(argv[2]);
 
-    // Loop through the rest of the command-line arguments
     for (int i = 3; i < argc; i++) {
         int value = atoi(argv[i]);
         if (value >= lo && value <= hi) {
@@ -32,6 +31,6 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o rangefilter rangefilter.c
-// ./rangefilter 1 9 3 5 12 8 0 7 11 9 15
+// gcc -o 24_rangefilter 24_rangefilter.c
+// ./24_rangefilter 1 9 3 5 12 8 0 7 11 9 15
 // 3 5 8 7 9

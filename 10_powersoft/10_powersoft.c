@@ -14,17 +14,11 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Convert the command-line argument to an integer
     int n = atoi(argv[1]);
-
-    // Initialize variables
     int power = 1;
     
-    // Print the first n powers of two
     for (int i = 0; i <= n; i++) {
-        // Print the current power of two
         printf("%d %d\n", i, power);
-        // Calculate the next power of two
         power = 2 * power;
     }
 
@@ -34,26 +28,26 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o powersoftwo powersoftwo.c
-// ./powersoftwo 0
+// gcc -o 10_powersoftwo 10_powersoftwo.c
+// ./10_powersoftwo 0
 // 0 1
 
-// ./powersoftwo 1
+// ./10_powersoftwo 1
 // 0 1
 // 1 2
 
-// ./powersoftwo 2
+// ./10_powersoftwo 2
 // 0 1
 // 1 2
 // 2 4
 
-// ./powersoftwo 3
+// ./10_powersoftwo 3
 // 0 1
 // 1 2
 // 2 4
 // 3 8
 
-// ./powersoftwo 4
+// ./10_powersoftwo 4
 // 0 1
 // 1 2
 // 2 4

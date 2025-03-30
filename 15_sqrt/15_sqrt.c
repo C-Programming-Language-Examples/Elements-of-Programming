@@ -24,7 +24,6 @@ int main(int argc, char *argv[]) {
 
     // Newton's method for square root approximation
     while (fabs(t - c / t) > (EPSILON * t)) {
-        // Replace t by the average of t and c/t
         t = (c / t + t) / 2.0;
     }
 
@@ -37,9 +36,9 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o sqrt sqrt.c -lm
-// ./sqrt 2.0
+// gcc -o 15_sqrt 15_sqrt.c -lm
+// ./15_sqrt 2.0
 // 1.414213562373095
 
-// ./sqrt 2544545
+// ./15_sqrt 2544545
 // 1595.163001075438

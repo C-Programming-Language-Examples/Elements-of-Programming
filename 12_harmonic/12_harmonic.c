@@ -14,19 +14,13 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Convert the command-line argument to an integer
     int n = atoi(argv[1]);
-
-    // Initialize the sum as a floating-point number
     double total = 0.0;
 
-    // Calculate the nth harmonic number
     for (int i = 1; i <= n; i++) {
-        // Add the ith term to the sum
         total += 1.0 / i;
     }
 
-    // Print the result
     printf("%lf\n", total);
 
     return 0;
@@ -35,12 +29,12 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o harmonic harmonic.c
-// ./harmonic 2
+// gcc -o 12_harmonic 12_harmonic.c
+// ./12_harmonic 2
 // 1.500000
 
-// ./harmonic 10
+// ./12_harmonic 10
 // 2.928968
 
-// ./harmonic 10000
+// ./12_harmonic 10000
 // 9.787606

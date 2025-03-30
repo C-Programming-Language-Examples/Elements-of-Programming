@@ -4,14 +4,10 @@
 
 #include <stdio.h>
 
-// Main function: Writes 10 Hellos to standard output.
 int main(void) {
-    // Print the first three Hellos with special suffixes
     printf("1st Hello\n");
     printf("2nd Hello\n");
     printf("3rd Hello\n");
-
-    // Loop from 4 to 10 to print the remaining Hellos
     for (int i = 4; i <= 10; i++) {
         printf("%dth Hello\n", i);
     }
@@ -22,8 +18,8 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o tenhellos tenhellos.c
-// ./tenhellos
+// gcc -o 09_tenhellos 09_tenhellos.c
+// ./09_tenhellos
 // 1st Hello
 // 2nd Hello
 // 3rd Hello

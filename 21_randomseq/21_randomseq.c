@@ -20,7 +20,6 @@ int main(int argc, char *argv[]) {
     // Seed the random number generator
     srand(time(NULL));
 
-    // Generate and print n random floats in the range [0, 1)
     for (int i = 0; i < n; i++) {
         double rand_float = (double)rand() / (double)RAND_MAX;
         printf("%f\n", rand_float);
@@ -32,8 +31,8 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o randomseq randomseq.c
-// ./randomseq 10
+// gcc -o 21_randomseq 21_randomseq.c
+// ./21_randomseq 10
 // 0.304702
 // 0.231551
 // 0.473591

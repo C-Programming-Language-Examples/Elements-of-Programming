@@ -22,7 +22,6 @@ int main(void) {
     float x0, y0, x1, y1;
     float x, y;
 
-    // Read the scaling coordinates
     scanf("%f %f %f %f", &x0, &y0, &x1, &y1);
 
     // Initialize SDL
@@ -74,5 +73,5 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o plotfilter plotfilter.c -lSDL2
-// cat usa.txt | ./plotfilter
+// gcc -o 25_plotfilter 25_plotfilter.c -lSDL2
+// cat usa.txt | ./25_plotfilter

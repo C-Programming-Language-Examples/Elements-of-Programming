@@ -27,11 +27,9 @@ int main(void) {
     int pitch;
     float duration;
 
-    // Initialize PortAudio
     Pa_Initialize();
 
     while (scanf("%d %f", &pitch, &duration) == 2) {
-        // Calculate frequency and sample count
         double hz = CONCERT_A * pow(2.0, pitch / NOTES_ON_SCALE);
         int n = (int)(SPS * duration);
 
@@ -49,15 +47,12 @@ int main(void) {
         // Wait until the stream has finished
         Pa_Sleep((int)(duration * 1000));
 
-        // Close the stream
         Pa_StopStream(stream);
         Pa_CloseStream(stream);
 
-        // Free the sound wave memory
         free(note);
     }
 
-    // Terminate PortAudio
     Pa_Terminate();
 
     return 0;
@@ -66,11 +61,11 @@ int main(void) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o playthattune playthattune.c -lportaudio -lm
-// cat elise.txt | ./playthattune
-// cat ascale.txt | ./playthattune
-// cat entertainer.txt | ./playthattune
-// cat firstcut.txt | ./playthattune
-// cat freebird.txt | ./playthattune
-// cat looney.txt | ./playthattune
-// cat stairwaytoheaven.txt | ./playthattune
+// gcc -o 27_playthetune 27_playthetune.c -lportaudio -lm
+// cat elise.txt | ./27_playthetune
+// cat ascale.txt | ./27_playthetune
+// cat entertainer.txt | ./27_playthetune
+// cat firstcut.txt | ./27_playthetune
+// cat freebird.txt | ./27_playthetune
+// cat looney.txt | ./27_playthetune
+// cat stairwaytoheaven.txt | ./27_playthetune

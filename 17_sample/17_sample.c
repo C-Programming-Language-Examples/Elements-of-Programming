@@ -15,11 +15,9 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Convert the command-line arguments to integers
     int m = atoi(argv[1]);  // Choose this many elements
     int n = atoi(argv[2]);  // From 0, 1, ..., n-1
 
-    // Check for invalid inputs
     if (m > n) {
         printf("Error: m must be less than or equal to n.\n");
         return 1;
@@ -39,13 +37,11 @@ int main(int argc, char *argv[]) {
         // Choose a random integer r between i and n-1
         int r = i + rand() % (n - i);
 
-        // Swap perm[i] and perm[r]
         int temp = perm[r];
         perm[r] = perm[i];
         perm[i] = temp;
     }
 
-    // Write the results
     for (int i = 0; i < m; i++) {
         printf("%d ", perm[i]);
     }
@@ -57,12 +53,12 @@ int main(int argc, char *argv[]) {
 //----------------------------------------------------------------------
 
 // Compile and run:
-// gcc -o sample sample.c
-// ./sample 6 16
+// gcc -o 17_sample 17_sample.c
+// ./17_sample 6 16
 // 9 6 3 5 4 13
 
-// ./sample 10 1000
+// ./17_sample 10 1000
 // 566 240 662 680 500 491 309 348 563 34
 
-// ./sample 20 20
+// ./17_sample 20 20
 // 15 6 19 5 1 4 10 16 7 3 13 14 12 2 9 0 18 8 17 11
