@@ -20,8 +20,8 @@
 │   └── 08_flip.c
 ├── 09_tenhellos
 │   └── 09_tenhellos.c
-├── 10_powersoft
-│   └── 10_powersoft.c
+├── 10_powersoftwo
+│   └── 10_powersoftwo.c
 ├── 11_divisorpattern
 │   └── 11_divisorpattern.c
 ├── 12_harmonic
