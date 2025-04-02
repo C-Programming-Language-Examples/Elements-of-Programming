@@ -7,8 +7,8 @@
 #include <stdbool.h>
 
 // Uses the Sieve of Eratosthenes to find prime numbers up to n
-int sieveOfEratosthenes(int n) {
-    bool *isPrime = (bool *)malloc((n + 1) * sizeof(bool));
+static int sieveOfEratosthenes(const int n) {
+    bool *const isPrime = (bool *)malloc((n + 1) * sizeof(bool));
     int count = 0;
 
     for (int i = 2; i <= n; i++) {
@@ -33,13 +33,13 @@ int sieveOfEratosthenes(int n) {
     return count;
 }
 
-int validateInput(int argc, char *argv[]) {
+static int validateInput(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./primesieve <n>\n");
         return -1;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
     if (n < 2) {
         printf("Error: n must be greater than or equal to 2.\n");
         return -1;
@@ -48,13 +48,13 @@ int validateInput(int argc, char *argv[]) {
     return n;
 }
 
-int main(int argc, char *argv[]) {
-    int n = validateInput(argc, argv);
+int main(const int argc, const char *const argv[]) {
+    const int n = validateInput(argc, argv);
     if (n == -1) {
         return 1;
     }
 
-    int count = sieveOfEratosthenes(n);
+    const int count = sieveOfEratosthenes(n);
     printf("%d\n", count);
 
     return 0;

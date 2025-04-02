@@ -8,9 +8,9 @@
 #include <time.h>
 
 // Simulates the coupon collection process and returns the number of trials
-int collectCoupons(int n) {
+static int collectCoupons(const int n) {
     int count = 0, collectedCount = 0;
-    bool *isCollected = (bool *)calloc(n, sizeof(bool));
+    bool *const isCollected = (bool *)calloc(n, sizeof(bool));
 
     while (collectedCount < n) {
         int value = rand() % n;
@@ -25,13 +25,13 @@ int collectCoupons(int n) {
     return count;
 }
 
-int validateInput(int argc, char *argv[]) {
+static int validateInput(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./couponcollector <n>\n");
         return -1;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
     if (n <= 0) {
         printf("Error: n must be a positive integer.\n");
         return -1;
@@ -40,15 +40,15 @@ int validateInput(int argc, char *argv[]) {
     return n;
 }
 
-int main(int argc, char *argv[]) {
-    int n = validateInput(argc, argv);
+int main(const int argc, const char *const argv[]) {
+    const int n = validateInput(argc, argv);
     if (n == -1) {
         return 1;
     }
 
     srand(time(NULL));
 
-    int count = collectCoupons(n);
+    const int count = collectCoupons(n);
     printf("%d\n", count);
 
     return 0;

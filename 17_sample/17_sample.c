@@ -7,7 +7,7 @@
 #include <time.h>
 
 // Generates a random sample of m integers from 0 to n-1 (no duplicates)
-void generateRandomSample(int m, int n) {
+static void generateRandomSample(const int m, const int n) {
     int perm[n];
     for (int i = 0; i < n; i++) {
         perm[i] = i;
@@ -26,7 +26,7 @@ void generateRandomSample(int m, int n) {
     printf("\n");
 }
 
-int validateInput(int argc, char *argv[], int *m, int *n) {
+static int validateInput(const int argc, const char *const argv[], int *const m, int *const n) {
     if (argc < 3) {
         printf("Usage: ./sample <m> <n>\n");
         return 0;
@@ -43,7 +43,7 @@ int validateInput(int argc, char *argv[], int *m, int *n) {
     return 1;
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     int m, n;
 
     if (!validateInput(argc, argv, &m, &n)) {

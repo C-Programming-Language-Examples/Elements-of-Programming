@@ -5,13 +5,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int isInRange(int value, int lo, int hi) {
+static int isInRange(const int value, const int lo, const int hi) {
     return (value >= lo && value <= hi);
 }
 
-void printFilteredNumbers(int lo, int hi, int argc, char *argv[]) {
+static void printFilteredNumbers(const int lo, const int hi, const int argc, const char *const argv[]) {
     for (int i = 3; i < argc; i++) {
-        int value = atoi(argv[i]);
+        const int value = atoi(argv[i]);
         if (isInRange(value, lo, hi)) {
             printf("%d ", value);
         }
@@ -19,7 +19,7 @@ void printFilteredNumbers(int lo, int hi, int argc, char *argv[]) {
     printf("\n");
 }
 
-int validateInput(int argc) {
+static int validateInput(const int argc) {
     if (argc < 4) {
         printf("Usage: ./rangefilter <lo> <hi> <numbers...>\n");
         return 0;
@@ -27,13 +27,13 @@ int validateInput(int argc) {
     return 1;
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (!validateInput(argc)) {
         return 1;
     }
 
-    int lo = atoi(argv[1]);
-    int hi = atoi(argv[2]);
+    const int lo = atoi(argv[1]);
+    const int hi = atoi(argv[2]);
 
     printFilteredNumbers(lo, hi, argc, argv);
 

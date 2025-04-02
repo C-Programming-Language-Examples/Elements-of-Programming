@@ -8,18 +8,18 @@
 
 #define RANGE 1000000
 
-int generateSecretNumber() {
+static int generateSecretNumber(void) {
     return rand() % RANGE + 1;
 }
 
-int getUserGuess() {
+static int getUserGuess(void) {
     int guess;
     printf("What is your guess? ");
     scanf("%d", &guess);
     return guess;
 }
 
-void giveFeedback(int guess, int secret) {
+static void giveFeedback(const int guess, const int secret) {
     if (guess < secret) {
         printf("Too low\n");
     } else if (guess > secret) {
@@ -29,7 +29,7 @@ void giveFeedback(int guess, int secret) {
     }
 }
 
-void playGuessingGame(int secret) {
+static void playGuessingGame(const int secret) {
     int guess = 0;
 
     while (guess != secret) {
@@ -41,7 +41,7 @@ void playGuessingGame(int secret) {
 int main(void) {
     srand(time(NULL));
 
-    int secret = generateSecretNumber();
+    const int secret = generateSecretNumber();
 
     printf("I am thinking of a secret number between 1 and %d\n", RANGE);
 

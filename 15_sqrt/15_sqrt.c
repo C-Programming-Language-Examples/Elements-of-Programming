@@ -8,7 +8,7 @@
 
 #define EPSILON 1e-15
 
-double newtonSqrt(double c) {
+static double newtonSqrt(const double c) {
     double t = c;
     while (fabs(t - c / t) > (EPSILON * t)) {
         t = (c / t + t) / 2.0;
@@ -16,20 +16,20 @@ double newtonSqrt(double c) {
     return t;
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./sqrt <c>\n");
         return 1;
     }
 
-    double c = atof(argv[1]);
+    const double c = atof(argv[1]);
 
     if (c < 0) {
         printf("Error: Square root of a negative number is not defined in real numbers.\n");
         return 1;
     }
 
-    double result = newtonSqrt(c);
+    const double result = newtonSqrt(c);
     printf("%.15lf\n", result);
 
     return 0;

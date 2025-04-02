@@ -6,37 +6,37 @@
 #include <stdlib.h>
 #include <math.h>
 
-double calculateDiscriminant(double b, double c) {
+static double calculateDiscriminant(const double b, const double c) {
     return b * b - 4.0 * c;
 }
 
-void calculateRoots(double b, double d, double *root1, double *root2) {
+static void calculateRoots(const double b, const double d, double *const root1, double *const root2) {
     *root1 = (-b + d) / 2.0;
     *root2 = (-b - d) / 2.0;
 }
 
-void printRoots(double root1, double root2) {
+static void printRoots(const double root1, const double root2) {
     printf("%lf\n", root1);
     printf("%lf\n", root2);
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 3) {
         printf("Usage: ./quadratic <b> <c>\n");
         return 1;
     }
 
-    double b = atof(argv[1]);
-    double c = atof(argv[2]);
+    const double b = atof(argv[1]);
+    const double c = atof(argv[2]);
 
-    double discriminant = calculateDiscriminant(b, c);
+    const double discriminant = calculateDiscriminant(b, c);
 
     if (discriminant < 0) {
         printf("Error: Math domain error - Negative discriminant.\n");
         return 1;
     }
 
-    double d = sqrt(discriminant);
+    const double d = sqrt(discriminant);
     double root1, root2;
     calculateRoots(b, d, &root1, &root2);
 

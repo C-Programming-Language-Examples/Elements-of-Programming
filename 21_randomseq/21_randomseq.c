@@ -7,23 +7,23 @@
 #include <time.h>
 
 // Generates a random float in the range [0, 1)
-double generateRandomFloat() {
+static double generateRandomFloat(void) {
     return (double)rand() / (double)RAND_MAX;
 }
 
-void printRandomSequence(int n) {
+static void printRandomSequence(const int n) {
     for (int i = 0; i < n; i++) {
         printf("%f\n", generateRandomFloat());
     }
 }
 
-int validateInput(int argc, char *argv[]) {
+static int validateInput(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./randomseq <n>\n");
         return -1;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
     if (n <= 0) {
         printf("Error: n must be a positive integer.\n");
         return -1;
@@ -32,8 +32,8 @@ int validateInput(int argc, char *argv[]) {
     return n;
 }
 
-int main(int argc, char *argv[]) {
-    int n = validateInput(argc, argv);
+int main(const int argc, const char *const argv[]) {
+    const int n = validateInput(argc, argv);
     if (n == -1) {
         return 1;
     }

@@ -11,38 +11,38 @@
 #define RADIUS 0.05
 #define DT 20000
 
-float rx = 0.480;
-float ry = 0.860;
-float vx = 0.015;
-float vy = 0.023;
+static float rx = 0.480;
+static float ry = 0.860;
+static float vx = 0.015;
+static float vy = 0.023;
 
 // Initializes the OpenGL environment
-void initGL() {
+static void initGL(void) {
     glClearColor(0.5, 0.5, 0.5, 1.0); // Gray background
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluOrtho2D(-1.0, 1.0, -1.0, 1.0);
 }
 
-void updatePosition() {
+static void updatePosition(void) {
     if (fabs(rx + vx) + RADIUS > 1.0) vx = -vx;
     if (fabs(ry + vy) + RADIUS > 1.0) vy = -vy;
     rx += vx;
     ry += vy;
 }
 
-void drawBall(float x, float y) {
+static void drawBall(const float x, const float y) {
     glBegin(GL_TRIANGLE_FAN);
     glColor3f(1.0, 0.0, 0.0); // Red ball
     glVertex2f(x, y);
     for (int i = 0; i <= 100; i++) {
-        float angle = 2 * M_PI * i / 100;
+        const float angle = 2 * M_PI * i / 100;
         glVertex2f(x + RADIUS * cos(angle), y + RADIUS * sin(angle));
     }
     glEnd();
 }
 
-void display() {
+static void display(void) {
     glClear(GL_COLOR_BUFFER_BIT);
     updatePosition();
     drawBall(rx, ry);
@@ -51,7 +51,7 @@ void display() {
     glutPostRedisplay();
 }
 
-int main(int argc, char** argv) {
+int main(void) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowSize(600, 600);

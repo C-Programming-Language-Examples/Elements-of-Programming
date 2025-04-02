@@ -7,7 +7,7 @@
 
 #define FILENAME "tiny.txt"
 
-double** readTransitionMatrix(const char* filename, int* n) {
+static double** readTransitionMatrix(const char* const filename, int* const n) {
     FILE *file = fopen(filename, "r");
     if (!file) {
         fprintf(stderr, "Error: Could not open file %s\n", filename);
@@ -29,14 +29,14 @@ double** readTransitionMatrix(const char* filename, int* n) {
     return probs;
 }
 
-void freeTransitionMatrix(double **probs, int n) {
+static void freeTransitionMatrix(double **const probs, const int n) {
     for (int i = 0; i < n; i++) {
         free(probs[i]);
     }
     free(probs);
 }
 
-double* computePageRanks(double **probs, int n, int moves) {
+static double* computePageRanks(double **const probs, const int n, const int moves) {
     double *ranks = (double *)calloc(n, sizeof(double));
     ranks[0] = 1.0;
 
@@ -53,14 +53,14 @@ double* computePageRanks(double **probs, int n, int moves) {
     return ranks;
 }
 
-void printPageRanks(double *ranks, int n) {
+static void printPageRanks(const double *const ranks, const int n) {
     for (int i = 0; i < n; i++) {
         printf("%8.5f ", ranks[i]);
     }
     printf("\n");
 }
 
-int validateInput(int argc, char *argv[]) {
+static int validateInput(const int argc, const char *const argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
         exit(EXIT_FAILURE);
@@ -68,8 +68,8 @@ int validateInput(int argc, char *argv[]) {
     return atoi(argv[1]);
 }
 
-int main(int argc, char *argv[]) {
-    int moves = validateInput(argc, argv);
+int main(const int argc, const char *const argv[]) {
+    const int moves = validateInput(argc, argv);
     int n;
 
     double **probs = readTransitionMatrix(FILENAME, &n);

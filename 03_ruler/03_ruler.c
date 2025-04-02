@@ -1,17 +1,17 @@
 //----------------------------------------------------------------------
-// 03_ruler.c
+// 03_ruler.c (with static and const keywords)
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <string.h>
 
-void combineRuler(char *ruler, int num) {
+static void combineRuler(char *ruler, const int num) {
     char temp[100];
     strcpy(temp, ruler);
     sprintf(ruler, "%s %d %s", temp, num, temp);
 }
 
-void buildRulerPattern(char *ruler, int level) {
+static void buildRulerPattern(char *ruler, const int level) {
     strcpy(ruler, "1");
     for (int i = 2; i <= level; i++) {
         combineRuler(ruler, i);

@@ -5,23 +5,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int calculatePowerOfTwo(int exponent) {
-    return 1 << exponent; 
+static int calculatePowerOfTwo(const int exponent) {
+    return 1 << exponent;
 }
 
-void printPowersOfTwo(int n) {
+static void printPowersOfTwo(const int n) {
     for (int i = 0; i <= n; i++) {
         printf("%d %d\n", i, calculatePowerOfTwo(i));
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./powersoftwo <n>\n");
         return 1;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
     printPowersOfTwo(n);
 
     return 0;

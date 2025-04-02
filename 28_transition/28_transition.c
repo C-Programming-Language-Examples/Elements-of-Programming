@@ -8,7 +8,7 @@
 
 #define FILENAME "tiny.txt"
 
-double** readTransitionMatrix(const char* filename, int* n) {
+static double** readTransitionMatrix(const char* const filename, int* const n) {
     FILE *file = fopen(filename, "r");
     if (!file) {
         fprintf(stderr, "Error: Could not open file %s\n", filename);
@@ -31,19 +31,19 @@ double** readTransitionMatrix(const char* filename, int* n) {
     return p;
 }
 
-void freeTransitionMatrix(double **p, int n) {
+static void freeTransitionMatrix(double **const p, const int n) {
     for (int i = 0; i < n; i++) {
         free(p[i]);
     }
     free(p);
 }
 
-void runMarkovChain(double **p, int n, int moves, int *hits) {
+static void runMarkovChain(double **const p, const int n, const int moves, int *const hits) {
     int page = 0;
     srand(time(NULL));
 
     for (int i = 0; i < moves; i++) {
-        double r = (double)rand() / RAND_MAX;
+        const double r = (double)rand() / RAND_MAX;
         double total = 0.0;
         for (int j = 0; j < n; j++) {
             total += p[page][j];
@@ -56,20 +56,20 @@ void runMarkovChain(double **p, int n, int moves, int *hits) {
     }
 }
 
-void printFrequencies(int *hits, int n, int moves) {
+static void printFrequencies(const int *const hits, const int n, const int moves) {
     for (int i = 0; i < n; i++) {
         printf("%8.5f ", (double)hits[i] / moves);
     }
     printf("\n");
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
         return EXIT_FAILURE;
     }
 
-    int moves = atoi(argv[1]);
+    const int moves = atoi(argv[1]);
     int n;
 
     double **p = readTransitionMatrix(FILENAME, &n);

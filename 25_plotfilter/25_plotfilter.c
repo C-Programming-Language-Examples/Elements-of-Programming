@@ -9,7 +9,7 @@
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600
 
-SDL_Renderer *initializeSDL(SDL_Window **window) {
+static SDL_Renderer *initializeSDL(SDL_Window **const window) {
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
         fprintf(stderr, "SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
         exit(1);
@@ -29,24 +29,25 @@ SDL_Renderer *initializeSDL(SDL_Window **window) {
     return renderer;
 }
 
-void cleanupSDL(SDL_Window *window, SDL_Renderer *renderer) {
+static void cleanupSDL(SDL_Window *const window, SDL_Renderer *const renderer) {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-void plotPoint(SDL_Renderer *renderer, int x, int y) {
+static void plotPoint(SDL_Renderer *const renderer, const int x, const int y) {
     SDL_RenderDrawPoint(renderer, x, y);
 }
 
-void transformAndPlot(SDL_Renderer *renderer, float x, float y, float x0, float y0, float x1, float y1) {
-    int px = (int)((x - x0) / (x1 - x0) * SCREEN_WIDTH);
-    int py = SCREEN_HEIGHT - (int)((y - y0) / (y1 - y0) * SCREEN_HEIGHT);
+static void transformAndPlot(SDL_Renderer *const renderer, const float x, const float y, 
+                             const float x0, const float y0, const float x1, const float y1) {
+    const int px = (int)((x - x0) / (x1 - x0) * SCREEN_WIDTH);
+    const int py = SCREEN_HEIGHT - (int)((y - y0) / (y1 - y0) * SCREEN_HEIGHT);
     plotPoint(renderer, px, py);
     SDL_RenderPresent(renderer);
 }
 
-void handleEvents() {
+static void handleEvents(void) {
     SDL_Event event;
     int quit = 0;
     while (!quit) {

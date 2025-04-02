@@ -5,19 +5,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-double calculateAverage(double total, int count) {
+static double calculateAverage(const double total, const int count) {
     return (count > 0) ? total / count : 0.0;
 }
 
-void sumNumbers(int argc, char *argv[], double *total, int *count) {
+static void sumNumbers(const int argc, const char *const argv[], double *const total, int *const count) {
     for (int i = 1; i < argc; i++) {
-        double value = atof(argv[i]);
+        const double value = atof(argv[i]);
         *total += value;
         (*count)++;
     }
 }
 
-void printAverage(double avg, int count) {
+static void printAverage(const double avg, const int count) {
     if (count > 0) {
         printf("Average is %lf\n", avg);
     } else {
@@ -25,7 +25,7 @@ void printAverage(double avg, int count) {
     }
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./average <numbers>\n");
         return 1;
@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
     int count = 0;
 
     sumNumbers(argc, argv, &total, &count);
-    double avg = calculateAverage(total, count);
+    const double avg = calculateAverage(total, count);
     printAverage(avg, count);
 
     return 0;

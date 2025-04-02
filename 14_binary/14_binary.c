@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // Computes the largest power of 2 less than or equal to n
-int largestPowerOfTwo(int n) {
+static int largestPowerOfTwo(const int n) {
     int v = 1;
     while (v <= n / 2) {
         v *= 2;
@@ -14,7 +14,7 @@ int largestPowerOfTwo(int n) {
     return v;
 }
 
-void printBinary(int n) {
+static void printBinary(const int n) {
     int v = largestPowerOfTwo(n);
     while (v > 0) {
         printf("%d", (n >= v) ? 1 : 0);
@@ -24,13 +24,13 @@ void printBinary(int n) {
     printf("\n");
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./binary <n>\n");
         return 1;
     }
 
-    int n = atoi(argv[1]);
+    const int n = atoi(argv[1]);
 
     if (n < 0) {
         printf("Error: Negative integers not supported.\n");

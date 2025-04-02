@@ -7,7 +7,7 @@
 #include <stdbool.h>
 #include <time.h>
 
-bool **allocate2DBoolArray(int n) {
+static bool **allocate2DBoolArray(const int n) {
     bool **array = (bool **)malloc(n * sizeof(bool *));
     for (int i = 0; i < n; i++) {
         array[i] = (bool *)calloc(n, sizeof(bool));
@@ -15,20 +15,20 @@ bool **allocate2DBoolArray(int n) {
     return array;
 }
 
-void free2DBoolArray(bool **array, int n) {
+static void free2DBoolArray(bool **const array, const int n) {
     for (int i = 0; i < n; i++) {
         free(array[i]);
     }
     free(array);
 }
 
-bool isDeadEnd(bool **a, int x, int y) {
-    return a[x-1][y] && a[x+1][y] && a[x][y-1] && a[x][y+1];
+static bool isDeadEnd(bool **const a, const int x, const int y) {
+    return a[x - 1][y] && a[x + 1][y] && a[x][y - 1] && a[x][y + 1];
 }
 
 // Performs a single self-avoiding walk in the n-by-n lattice
-bool performWalk(int n) {
-    bool **a = allocate2DBoolArray(n);
+static bool performWalk(const int n) {
+    bool **const a = allocate2DBoolArray(n);
     int x = n / 2;
     int y = n / 2;
 
@@ -41,10 +41,10 @@ bool performWalk(int n) {
         }
 
         int r = rand() % 4;
-        if (r == 0 && !a[x+1][y]) x += 1;
-        else if (r == 1 && !a[x-1][y]) x -= 1;
-        else if (r == 2 && !a[x][y+1]) y += 1;
-        else if (r == 3 && !a[x][y-1]) y -= 1;
+        if (r == 0 && !a[x + 1][y]) x += 1;
+        else if (r == 1 && !a[x - 1][y]) x -= 1;
+        else if (r == 2 && !a[x][y + 1]) y += 1;
+        else if (r == 3 && !a[x][y - 1]) y -= 1;
     }
 
     free2DBoolArray(a, n);
@@ -52,7 +52,7 @@ bool performWalk(int n) {
 }
 
 // Runs multiple trials and calculates the percentage of dead ends
-int runTrials(int n, int trials) {
+static int runTrials(const int n, const int trials) {
     int deadEnds = 0;
     for (int t = 0; t < trials; t++) {
         if (performWalk(n)) {
@@ -62,7 +62,7 @@ int runTrials(int n, int trials) {
     return (100 * deadEnds) / trials;
 }
 
-bool validateInput(int argc, char *argv[], int *n, int *trials) {
+static bool validateInput(const int argc, const char *const argv[], int *const n, int *const trials) {
     if (argc < 3) {
         printf("Usage: ./selfavoid <n> <trialCount>\n");
         return false;
@@ -79,7 +79,7 @@ bool validateInput(int argc, char *argv[], int *n, int *trials) {
     return true;
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     int n, trials;
 
     if (!validateInput(argc, argv, &n, &trials)) {
@@ -88,7 +88,7 @@ int main(int argc, char *argv[]) {
 
     srand(time(NULL));
 
-    int deadEndPercentage = runTrials(n, trials);
+    const int deadEndPercentage = runTrials(n, trials);
     printf("%d%% dead ends\n", deadEndPercentage);
 
     return 0;

@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void printPrimeFactors(long long n) {
+static void printPrimeFactors(long long n) {
     long long factor = 2;
 
     while (factor * factor <= n) {
@@ -23,13 +23,13 @@ void printPrimeFactors(long long n) {
     printf("\n");
 }
 
-int validateInput(int argc, char *argv[]) {
+static int validateInput(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./factors <n>\n");
         return 0;
     }
 
-    long long n = atoll(argv[1]);
+    const long long n = atoll(argv[1]);
     if (n <= 1) {
         printf("Error: Input must be greater than 1.\n");
         return 0;
@@ -38,12 +38,12 @@ int validateInput(int argc, char *argv[]) {
     return 1;
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (!validateInput(argc, argv)) {
         return 1;
     }
 
-    long long n = atoll(argv[1]);
+    const long long n = atoll(argv[1]);
     printPrimeFactors(n);
 
     return 0;

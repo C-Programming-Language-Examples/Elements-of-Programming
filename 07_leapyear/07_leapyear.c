@@ -5,22 +5,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int isLeapYear(int year) {
+static int isLeapYear(const int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
-void printLeapYearStatus(int isLeap) {
+static void printLeapYearStatus(const int isLeap) {
     printf("%s\n", isLeap ? "True" : "False");
 }
 
-int main(int argc, char *argv[]) {
+int main(const int argc, const char *const argv[]) {
     if (argc < 2) {
         printf("Usage: ./leapyear <year>\n");
         return 1;
     }
 
-    int year = atoi(argv[1]);
-    int leapStatus = isLeapYear(year);
+    const int year = atoi(argv[1]);
+    const int leapStatus = isLeapYear(year);
     printLeapYearStatus(leapStatus);
 
     return 0;

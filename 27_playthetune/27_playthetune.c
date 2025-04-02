@@ -11,7 +11,7 @@
 #define CONCERT_A 440.0     // Frequency of A4
 #define NOTES_ON_SCALE 12.0 // Number of notes in an octave
 
-float* generateSoundWave(double hz, int n) {
+static float* generateSoundWave(const double hz, const int n) {
     float *note = (float*)malloc((n + 1) * sizeof(float));
     for (int i = 0; i <= n; i++) {
         note[i] = (float)sin(2.0 * M_PI * i * hz / SPS);
@@ -23,14 +23,14 @@ static int playCallback(const void *inputBuffer, void *outputBuffer,
                         unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo,
                         PaStreamCallbackFlags statusFlags, void *userData) {
     float *out = (float*)outputBuffer;
-    float *note = (float*)userData;
+    const float *note = (const float*)userData;
     for (unsigned long i = 0; i < framesPerBuffer; i++) {
         *out++ = note[i];
     }
     return paComplete;
 }
 
-void playSound(float *note, int n, float duration) {
+static void playSound(float *const note, const int n, const float duration) {
     PaStream *stream;
     Pa_OpenDefaultStream(&stream, 0, 1, paFloat32, SPS, n + 1, playCallback, note);
     Pa_StartStream(stream);
@@ -39,11 +39,11 @@ void playSound(float *note, int n, float duration) {
     Pa_CloseStream(stream);
 }
 
-void initializePortAudio() {
+static void initializePortAudio(void) {
     Pa_Initialize();
 }
 
-void terminatePortAudio() {
+static void terminatePortAudio(void) {
     Pa_Terminate();
 }
 
@@ -54,8 +54,8 @@ int main(void) {
     initializePortAudio();
 
     while (scanf("%d %f", &pitch, &duration) == 2) {
-        double hz = CONCERT_A * pow(2.0, pitch / NOTES_ON_SCALE);
-        int n = (int)(SPS * duration);
+        const double hz = CONCERT_A * pow(2.0, pitch / NOTES_ON_SCALE);
+        const int n = (int)(SPS * duration);
 
         float *note = generateSoundWave(hz, n);
         playSound(note, n, duration);
