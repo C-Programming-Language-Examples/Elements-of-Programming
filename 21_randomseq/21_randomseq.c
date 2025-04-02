@@ -1,29 +1,46 @@
 //----------------------------------------------------------------------
-// randomseq.c
+// 21_randomseq.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-// Accept integer command-line argument n. Write to standard output
-// a random sequence of n floats in the range [0, 1).
+// Generates a random float in the range [0, 1)
+double generateRandomFloat() {
+    return (double)rand() / (double)RAND_MAX;
+}
 
-int main(int argc, char *argv[]) {
+void printRandomSequence(int n) {
+    for (int i = 0; i < n; i++) {
+        printf("%f\n", generateRandomFloat());
+    }
+}
+
+int validateInput(int argc, char *argv[]) {
     if (argc < 2) {
         printf("Usage: ./randomseq <n>\n");
-        return 1;
+        return -1;
     }
 
     int n = atoi(argv[1]);
+    if (n <= 0) {
+        printf("Error: n must be a positive integer.\n");
+        return -1;
+    }
 
-    // Seed the random number generator
+    return n;
+}
+
+int main(int argc, char *argv[]) {
+    int n = validateInput(argc, argv);
+    if (n == -1) {
+        return 1;
+    }
+
     srand(time(NULL));
 
-    for (int i = 0; i < n; i++) {
-        double rand_float = (double)rand() / (double)RAND_MAX;
-        printf("%f\n", rand_float);
-    }
+    printRandomSequence(n);
 
     return 0;
 }

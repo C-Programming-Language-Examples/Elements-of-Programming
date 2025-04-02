@@ -1,21 +1,35 @@
 //----------------------------------------------------------------------
-// binary.c
+// 14_binary.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Main function: Accepts an integer n as a command-line argument.
-// Writes the binary representation of n to standard output.
-// Limitation: Does not handle negative integers.
+// Computes the largest power of 2 less than or equal to n
+int largestPowerOfTwo(int n) {
+    int v = 1;
+    while (v <= n / 2) {
+        v *= 2;
+    }
+    return v;
+}
+
+void printBinary(int n) {
+    int v = largestPowerOfTwo(n);
+    while (v > 0) {
+        printf("%d", (n >= v) ? 1 : 0);
+        if (n >= v) n -= v;
+        v /= 2;
+    }
+    printf("\n");
+}
+
 int main(int argc, char *argv[]) {
-    // Check if an integer argument is passed
     if (argc < 2) {
         printf("Usage: ./binary <n>\n");
         return 1;
     }
 
-    // Convert the command-line argument to an integer
     int n = atoi(argv[1]);
 
     if (n < 0) {
@@ -23,24 +37,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // Compute v as the largest power of 2 <= n.
-    int v = 1;
-    while (v <= n / 2) {
-        v *= 2;
-    }
-
-    // Cast out powers of 2 in decreasing order.
-    while (v > 0) {
-        if (n < v) {
-            printf("0");
-        } else {
-            printf("1");
-            n -= v;
-        }
-        v /= 2;
-    }
-
-    printf("\n");
+    printBinary(n);
 
     return 0;
 }

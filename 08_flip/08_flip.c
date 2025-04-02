@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// flip.c
+// 08_flip.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
@@ -10,7 +10,6 @@ int main(void) {
     // Seed the random number generator with the current time
     srand(time(NULL));
 
-    // Generate a random number (0 or 1) and print the result
     if (rand() % 2 == 0) {
         printf("Heads\n");
     } else {

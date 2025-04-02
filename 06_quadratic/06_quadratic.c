@@ -1,26 +1,35 @@
 //----------------------------------------------------------------------
-// quadratic.c
+// 06_quadratic.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-// Main function: Accepts floats b and c as command-line arguments.
-// Computes the roots of the polynomial x^2 + bx + c using the quadratic formula.
-// Writes the roots to standard output.
+double calculateDiscriminant(double b, double c) {
+    return b * b - 4.0 * c;
+}
+
+void calculateRoots(double b, double d, double *root1, double *root2) {
+    *root1 = (-b + d) / 2.0;
+    *root2 = (-b - d) / 2.0;
+}
+
+void printRoots(double root1, double root2) {
+    printf("%lf\n", root1);
+    printf("%lf\n", root2);
+}
+
 int main(int argc, char *argv[]) {
-    // Check if two float arguments are passed
     if (argc < 3) {
         printf("Usage: ./quadratic <b> <c>\n");
         return 1;
     }
 
-    // Convert command-line arguments from strings to floats
     double b = atof(argv[1]);
     double c = atof(argv[2]);
 
-    double discriminant = b * b - 4.0 * c;
+    double discriminant = calculateDiscriminant(b, c);
 
     if (discriminant < 0) {
         printf("Error: Math domain error - Negative discriminant.\n");
@@ -28,12 +37,10 @@ int main(int argc, char *argv[]) {
     }
 
     double d = sqrt(discriminant);
+    double root1, root2;
+    calculateRoots(b, d, &root1, &root2);
 
-    double root1 = (-b + d) / 2.0;
-    double root2 = (-b - d) / 2.0;
-
-    printf("%lf\n", root1);
-    printf("%lf\n", root2);
+    printRoots(root1, root2);
 
     return 0;
 }

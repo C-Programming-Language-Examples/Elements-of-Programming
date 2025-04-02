@@ -1,27 +1,31 @@
 //----------------------------------------------------------------------
-// harmonic.c
+// 12_harmonic.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Main function: Accepts an integer n as a command-line argument.
-// Writes the value of the nth harmonic number to standard output.
+double calculateHarmonicNumber(int n) {
+    double total = 0.0;
+    for (int i = 1; i <= n; i++) {
+        total += 1.0 / i;
+    }
+    return total;
+}
+
+void printHarmonicNumber(double result) {
+    printf("%lf\n", result);
+}
+
 int main(int argc, char *argv[]) {
-    // Check if an integer argument is passed
     if (argc < 2) {
         printf("Usage: ./harmonic <n>\n");
         return 1;
     }
 
     int n = atoi(argv[1]);
-    double total = 0.0;
-
-    for (int i = 1; i <= n; i++) {
-        total += 1.0 / i;
-    }
-
-    printf("%lf\n", total);
+    double result = calculateHarmonicNumber(n);
+    printHarmonicNumber(result);
 
     return 0;
 }

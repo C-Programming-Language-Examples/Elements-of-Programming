@@ -1,30 +1,31 @@
 //----------------------------------------------------------------------
-// divisorpattern.c
+// 11_divisorpattern.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Main function: Accepts an integer n as a command-line argument.
-// Writes an n-by-n table with an asterisk if either i divides j or j divides i.
+int isDivisor(int a, int b) {
+    return (a % b == 0) || (b % a == 0);
+}
+
+void printDivisorPattern(int n) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            printf("%s ", isDivisor(i, j) ? "*" : " ");
+        }
+        printf("%d\n", i);
+    }
+}
+
 int main(int argc, char *argv[]) {
     if (argc < 2) {
-        printf("Usage: ./divisorpattern 5\n");
+        printf("Usage: ./divisorpattern <n>\n");
         return 1;
     }
 
     int n = atoi(argv[1]);
-
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) {
-            if ((i % j == 0) || (j % i == 0)) {
-                printf("* ");
-            } else {
-                printf("  ");
-            }
-        }
-        printf("%d\n", i);
-    }
+    printDivisorPattern(n);
 
     return 0;
 }

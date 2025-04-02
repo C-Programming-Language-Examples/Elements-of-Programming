@@ -1,39 +1,30 @@
 //----------------------------------------------------------------------
-// ruler.c
+// 03_ruler.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <string.h>
 
-// Function to build the ruler pattern.
-void buildRuler(char *ruler, int num) {
+void combineRuler(char *ruler, int num) {
     char temp[100];
     strcpy(temp, ruler);
-    sprintf(ruler, "%s %d %s", temp, num, temp);  // Combine the parts.
+    sprintf(ruler, "%s %d %s", temp, num, temp);
 }
 
-// Main function: Prints the ruler patterns.
+void buildRulerPattern(char *ruler, int level) {
+    strcpy(ruler, "1");
+    for (int i = 2; i <= level; i++) {
+        combineRuler(ruler, i);
+    }
+}
+
 int main(void) {
-    char ruler1[100] = "1";
-    char ruler2[100];
-    char ruler3[100];
-    char ruler4[100];
+    char ruler[100];
 
-    // Build the rulers using the buildRuler function.
-    strcpy(ruler2, ruler1);
-    buildRuler(ruler2, 2);
-
-    strcpy(ruler3, ruler2);
-    buildRuler(ruler3, 3);
-
-    strcpy(ruler4, ruler3);
-    buildRuler(ruler4, 4);
-
-    // Print the ruler patterns.
-    printf("%s\n", ruler1);
-    printf("%s\n", ruler2);
-    printf("%s\n", ruler3);
-    printf("%s\n", ruler4);
+    for (int i = 1; i <= 4; i++) {
+        buildRulerPattern(ruler, i);
+        printf("%s\n", ruler);
+    }
 
     return 0;
 }

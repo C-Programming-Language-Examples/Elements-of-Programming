@@ -1,26 +1,28 @@
 //----------------------------------------------------------------------
-// powersoftwo.c
+// 10_powersoftwo.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Main function: Accepts a positive integer n as a command-line argument.
-// Writes a table showing the first n powers of two.
+int calculatePowerOfTwo(int exponent) {
+    return 1 << exponent; 
+}
+
+void printPowersOfTwo(int n) {
+    for (int i = 0; i <= n; i++) {
+        printf("%d %d\n", i, calculatePowerOfTwo(i));
+    }
+}
+
 int main(int argc, char *argv[]) {
-    // Check if an integer argument is passed
     if (argc < 2) {
         printf("Usage: ./powersoftwo <n>\n");
         return 1;
     }
 
     int n = atoi(argv[1]);
-    int power = 1;
-    
-    for (int i = 0; i <= n; i++) {
-        printf("%d %d\n", i, power);
-        power = 2 * power;
-    }
+    printPowersOfTwo(n);
 
     return 0;
 }

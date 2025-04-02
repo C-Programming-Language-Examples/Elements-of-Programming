@@ -1,30 +1,27 @@
 //----------------------------------------------------------------------
-// leapyear.c
+// 07_leapyear.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Main function: Accepts an int year as a command-line argument.
-// Writes "True" to standard output if the year is a leap year, otherwise "False".
+int isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+void printLeapYearStatus(int isLeap) {
+    printf("%s\n", isLeap ? "True" : "False");
+}
+
 int main(int argc, char *argv[]) {
-    // Check if a year argument is passed
     if (argc < 2) {
         printf("Usage: ./leapyear <year>\n");
         return 1;
     }
 
     int year = atoi(argv[1]);
-
-    int isLeapYear = (year % 4 == 0);
-    isLeapYear = isLeapYear && (year % 100 != 0);
-    isLeapYear = isLeapYear || (year % 400 == 0);
-
-    if (isLeapYear) {
-        printf("True\n");
-    } else {
-        printf("False\n");
-    }
+    int leapStatus = isLeapYear(year);
+    printLeapYearStatus(leapStatus);
 
     return 0;
 }

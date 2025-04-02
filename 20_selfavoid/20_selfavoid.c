@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// selfavoid.c
+// 20_selfavoid.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
@@ -7,61 +7,89 @@
 #include <stdbool.h>
 #include <time.h>
 
-// Accept integers n and trialCount as command-line arguments.
-// Perform trialCount random self-avoiding walks in an n-by-n lattice.
-// Write to standard output the percentage of dead ends encountered.
+bool **allocate2DBoolArray(int n) {
+    bool **array = (bool **)malloc(n * sizeof(bool *));
+    for (int i = 0; i < n; i++) {
+        array[i] = (bool *)calloc(n, sizeof(bool));
+    }
+    return array;
+}
 
-int main(int argc, char *argv[]) {
+void free2DBoolArray(bool **array, int n) {
+    for (int i = 0; i < n; i++) {
+        free(array[i]);
+    }
+    free(array);
+}
+
+bool isDeadEnd(bool **a, int x, int y) {
+    return a[x-1][y] && a[x+1][y] && a[x][y-1] && a[x][y+1];
+}
+
+// Performs a single self-avoiding walk in the n-by-n lattice
+bool performWalk(int n) {
+    bool **a = allocate2DBoolArray(n);
+    int x = n / 2;
+    int y = n / 2;
+
+    while (x > 0 && x < n - 1 && y > 0 && y < n - 1) {
+        a[x][y] = true;
+
+        if (isDeadEnd(a, x, y)) {
+            free2DBoolArray(a, n);
+            return true;  // Dead end encountered
+        }
+
+        int r = rand() % 4;
+        if (r == 0 && !a[x+1][y]) x += 1;
+        else if (r == 1 && !a[x-1][y]) x -= 1;
+        else if (r == 2 && !a[x][y+1]) y += 1;
+        else if (r == 3 && !a[x][y-1]) y -= 1;
+    }
+
+    free2DBoolArray(a, n);
+    return false;  // Walk completed successfully
+}
+
+// Runs multiple trials and calculates the percentage of dead ends
+int runTrials(int n, int trials) {
+    int deadEnds = 0;
+    for (int t = 0; t < trials; t++) {
+        if (performWalk(n)) {
+            deadEnds++;
+        }
+    }
+    return (100 * deadEnds) / trials;
+}
+
+bool validateInput(int argc, char *argv[], int *n, int *trials) {
     if (argc < 3) {
         printf("Usage: ./selfavoid <n> <trialCount>\n");
+        return false;
+    }
+
+    *n = atoi(argv[1]);
+    *trials = atoi(argv[2]);
+
+    if (*n <= 1 || *trials <= 0) {
+        printf("Error: n must be greater than 1 and trialCount must be positive.\n");
+        return false;
+    }
+
+    return true;
+}
+
+int main(int argc, char *argv[]) {
+    int n, trials;
+
+    if (!validateInput(argc, argv, &n, &trials)) {
         return 1;
     }
 
-    int n = atoi(argv[1]);
-    int trials = atoi(argv[2]);
-    int deadEnds = 0;
-
     srand(time(NULL));
 
-    for (int t = 0; t < trials; t++) {
-        // Create an n-by-n array, initialized to false
-        bool **a = (bool **)malloc(n * sizeof(bool *));
-        for (int i = 0; i < n; i++) {
-            a[i] = (bool *)calloc(n, sizeof(bool));
-        }
-
-        int x = n / 2;
-        int y = n / 2;
-
-        while (x > 0 && x < n - 1 && y > 0 && y < n - 1) {
-            a[x][y] = true;
-
-            // Check for dead end
-            if (a[x-1][y] && a[x+1][y] && a[x][y-1] && a[x][y+1]) {
-                deadEnds++;
-                break;
-            }
-
-            // Make a random move
-            int r = rand() % 4;
-            if (r == 0 && !a[x+1][y]) {
-                x += 1;
-            } else if (r == 1 && !a[x-1][y]) {
-                x -= 1;
-            } else if (r == 2 && !a[x][y+1]) {
-                y += 1;
-            } else if (r == 3 && !a[x][y-1]) {
-                y -= 1;
-            }
-        }
-
-        for (int i = 0; i < n; i++) {
-            free(a[i]);
-        }
-        free(a);
-    }
-
-    printf("%d%% dead ends\n", 100 * deadEnds / trials);
+    int deadEndPercentage = runTrials(n, trials);
+    printf("%d%% dead ends\n", deadEndPercentage);
 
     return 0;
 }

@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// transition.c
+// 28_transition.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
@@ -8,43 +8,40 @@
 
 #define FILENAME "tiny.txt"
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
-        return 1;
-    }
-
-    int moves = atoi(argv[1]);
-
-    FILE *file = fopen(FILENAME, "r");
+double** readTransitionMatrix(const char* filename, int* n) {
+    FILE *file = fopen(filename, "r");
     if (!file) {
-        fprintf(stderr, "Error: Could not open file %s\n", FILENAME);
-        return 1;
+        fprintf(stderr, "Error: Could not open file %s\n", filename);
+        exit(EXIT_FAILURE);
     }
 
-    int n;
-    fscanf(file, "%d", &n);
+    fscanf(file, "%d", n);
     int discard;
     fscanf(file, "%d", &discard); // Discard the second int from input
 
-    // Allocate memory for the transition matrix
-    double **p = (double **)malloc(n * sizeof(double *));
-    for (int i = 0; i < n; i++) {
-        p[i] = (double *)malloc(n * sizeof(double));
-    }
-
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    double **p = (double **)malloc(*n * sizeof(double *));
+    for (int i = 0; i < *n; i++) {
+        p[i] = (double *)malloc(*n * sizeof(double));
+        for (int j = 0; j < *n; j++) {
             fscanf(file, "%lf", &p[i][j]);
         }
     }
+
     fclose(file);
+    return p;
+}
 
-    int *hits = (int *)calloc(n, sizeof(int));
-    int page = 0; 
-    srand(time(NULL)); // Seed the random number generator
+void freeTransitionMatrix(double **p, int n) {
+    for (int i = 0; i < n; i++) {
+        free(p[i]);
+    }
+    free(p);
+}
 
-    // Perform the simulation
+void runMarkovChain(double **p, int n, int moves, int *hits) {
+    int page = 0;
+    srand(time(NULL));
+
     for (int i = 0; i < moves; i++) {
         double r = (double)rand() / RAND_MAX;
         double total = 0.0;
@@ -57,19 +54,34 @@ int main(int argc, char *argv[]) {
         }
         hits[page]++;
     }
+}
 
+void printFrequencies(int *hits, int n, int moves) {
     for (int i = 0; i < n; i++) {
         printf("%8.5f ", (double)hits[i] / moves);
     }
     printf("\n");
+}
 
-    for (int i = 0; i < n; i++) {
-        free(p[i]);
+int main(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
+        return EXIT_FAILURE;
     }
-    free(p);
+
+    int moves = atoi(argv[1]);
+    int n;
+
+    double **p = readTransitionMatrix(FILENAME, &n);
+    int *hits = (int *)calloc(n, sizeof(int));
+
+    runMarkovChain(p, n, moves, hits);
+    printFrequencies(hits, n, moves);
+
+    freeTransitionMatrix(p, n);
     free(hits);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 // Compile and run:

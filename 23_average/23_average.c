@@ -1,12 +1,29 @@
 //----------------------------------------------------------------------
-// average.c
+// 23_average.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 
-// Read floats from the command-line arguments.
-// Write to standard output the average of those floats.
+double calculateAverage(double total, int count) {
+    return (count > 0) ? total / count : 0.0;
+}
+
+void sumNumbers(int argc, char *argv[], double *total, int *count) {
+    for (int i = 1; i < argc; i++) {
+        double value = atof(argv[i]);
+        *total += value;
+        (*count)++;
+    }
+}
+
+void printAverage(double avg, int count) {
+    if (count > 0) {
+        printf("Average is %lf\n", avg);
+    } else {
+        printf("No numbers provided.\n");
+    }
+}
 
 int main(int argc, char *argv[]) {
     if (argc < 2) {
@@ -17,18 +34,9 @@ int main(int argc, char *argv[]) {
     double total = 0.0;
     int count = 0;
 
-    for (int i = 1; i < argc; i++) {
-        double value = atof(argv[i]);
-        total += value;
-        count++;
-    }
-
-    if (count > 0) {
-        double avg = total / count;
-        printf("Average is %lf\n", avg);
-    } else {
-        printf("No numbers provided.\n");
-    }
+    sumNumbers(argc, argv, &total, &count);
+    double avg = calculateAverage(total, count);
+    printAverage(avg, count);
 
     return 0;
 }

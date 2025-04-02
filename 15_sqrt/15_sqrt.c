@@ -1,34 +1,36 @@
 //----------------------------------------------------------------------
-// sqrt.c
+// 15_sqrt.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-// Define the precision for Newton's method
 #define EPSILON 1e-15
 
-// Main function: Accepts a float c as a command-line argument.
-// Writes the square root of c to 15 decimal places using Newton's method.
+double newtonSqrt(double c) {
+    double t = c;
+    while (fabs(t - c / t) > (EPSILON * t)) {
+        t = (c / t + t) / 2.0;
+    }
+    return t;
+}
+
 int main(int argc, char *argv[]) {
-    // Check if a float argument is passed
     if (argc < 2) {
         printf("Usage: ./sqrt <c>\n");
         return 1;
     }
 
-    // Convert the command-line argument to a double
     double c = atof(argv[1]);
-    double t = c;
 
-    // Newton's method for square root approximation
-    while (fabs(t - c / t) > (EPSILON * t)) {
-        t = (c / t + t) / 2.0;
+    if (c < 0) {
+        printf("Error: Square root of a negative number is not defined in real numbers.\n");
+        return 1;
     }
 
-    // Print the result with 15 decimal places
-    printf("%.15lf\n", t);
+    double result = newtonSqrt(c);
+    printf("%.15lf\n", result);
 
     return 0;
 }

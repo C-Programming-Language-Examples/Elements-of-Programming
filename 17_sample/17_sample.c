@@ -1,42 +1,20 @@
 //----------------------------------------------------------------------
-// sample.c
+// 17_sample.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-// Main function: Accepts integers m and n as command-line arguments.
-// Writes to standard output a random sample of m integers from the range 0 to n-1 (no duplicates).
-int main(int argc, char *argv[]) {
-    // Check if two integer arguments are passed
-    if (argc < 3) {
-        printf("Usage: ./sample <m> <n>\n");
-        return 1;
-    }
-
-    int m = atoi(argv[1]);  // Choose this many elements
-    int n = atoi(argv[2]);  // From 0, 1, ..., n-1
-
-    if (m > n) {
-        printf("Error: m must be less than or equal to n.\n");
-        return 1;
-    }
-
-    // Seed the random number generator
-    srand(time(NULL));
-
-    // Initialize the permutation array
+// Generates a random sample of m integers from 0 to n-1 (no duplicates)
+void generateRandomSample(int m, int n) {
     int perm[n];
     for (int i = 0; i < n; i++) {
         perm[i] = i;
     }
 
-    // Create a random sample in perm[0], perm[1], ..., perm[m-1]
     for (int i = 0; i < m; i++) {
-        // Choose a random integer r between i and n-1
         int r = i + rand() % (n - i);
-
         int temp = perm[r];
         perm[r] = perm[i];
         perm[i] = temp;
@@ -46,6 +24,34 @@ int main(int argc, char *argv[]) {
         printf("%d ", perm[i]);
     }
     printf("\n");
+}
+
+int validateInput(int argc, char *argv[], int *m, int *n) {
+    if (argc < 3) {
+        printf("Usage: ./sample <m> <n>\n");
+        return 0;
+    }
+
+    *m = atoi(argv[1]);
+    *n = atoi(argv[2]);
+
+    if (*m > *n) {
+        printf("Error: m must be less than or equal to n.\n");
+        return 0;
+    }
+
+    return 1;
+}
+
+int main(int argc, char *argv[]) {
+    int m, n;
+
+    if (!validateInput(argc, argv, &m, &n)) {
+        return 1;
+    }
+
+    srand(time(NULL));
+    generateRandomSample(m, n);
 
     return 0;
 }

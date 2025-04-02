@@ -1,36 +1,34 @@
 //----------------------------------------------------------------------
-// floatops.c
+// 05_floatops.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-// Main function: Accepts two float command-line arguments a and b.
-// Uses them to illustrate float operators. Prints the results.
+void printArithmeticResults(double a, double b) {
+    printf("%f + %f = %f\n", a, b, a + b);
+    printf("%f - %f = %f\n", a, b, a - b);
+    printf("%f * %f = %f\n", a, b, a * b);
+    printf("%f / %f = %f\n", a, b, a / b);
+}
+
+void printExponentResult(double a, double b) {
+    double exp = pow(a, b);
+    printf("%f ** %f = %e\n", a, b, exp);  // Scientific notation for large numbers
+}
+
 int main(int argc, char *argv[]) {
-    // Check if two float arguments are passed
     if (argc < 3) {
         printf("Usage: ./floatops <a> <b>\n");
         return 1;
     }
 
-    // Convert command-line arguments from strings to floats
     double a = atof(argv[1]);
     double b = atof(argv[2]);
 
-    double total = a + b;
-    double diff = a - b;
-    double prod = a * b;
-    double quot = a / b;
-    double exp = pow(a, b);
-
-    // Print the results in the specified format
-    printf("%f +  %f = %f\n", a, b, total);
-    printf("%f -  %f = %f\n", a, b, diff);
-    printf("%f *  %f = %f\n", a, b, prod);
-    printf("%f /  %f = %f\n", a, b, quot);
-    printf("%f ** %f = %e\n", a, b, exp);  // Scientific notation for large numbers
+    printArithmeticResults(a, b);
+    printExponentResult(a, b);
 
     return 0;
 }

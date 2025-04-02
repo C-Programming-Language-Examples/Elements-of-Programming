@@ -1,45 +1,27 @@
 //----------------------------------------------------------------------
-// gambler.c
+// 13_gambler.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-// Main function: Simulates a gambling scenario based on the given arguments.
-// Accepts integer command-line arguments stake, goal, and trials.
-int main(int argc, char *argv[]) {
-    // Check if three integer arguments are passed
-    if (argc < 4) {
-        printf("Usage: ./gambler <stake> <goal> <trials>\n");
-        return 1;
+int simulateTrial(int stake, int goal, int *bets) {
+    int cash = stake;
+    while (cash > 0 && cash < goal) {
+        (*bets)++;
+        cash += (rand() % 2 == 0) ? 1 : -1;
     }
+    return cash == goal;
+}
 
-    // Convert the command-line arguments to integers
-    int stake = atoi(argv[1]);
-    int goal = atoi(argv[2]);
-    int trials = atoi(argv[3]);
+void runSimulation(int stake, int goal, int trials) {
+    int bets = 0, wins = 0;
 
-    int bets = 0;
-    int wins = 0;
-
-    // Seed the random number generator
     srand(time(NULL));
 
     for (int t = 0; t < trials; t++) {
-        int cash = stake;
-        // Run one experiment until cash reaches 0 or goal
-        while (cash > 0 && cash < goal) {
-            // Simulate one bet
-            bets++;
-            if (rand() % 2 == 0) {  // 50% chance for Heads or Tails
-                cash++;  // Win the bet
-            } else {
-                cash--;  // Lose the bet
-            }
-        }
-
-        if (cash == goal) {
+        if (simulateTrial(stake, goal, &bets)) {
             wins++;
         }
     }
@@ -49,6 +31,19 @@ int main(int argc, char *argv[]) {
 
     printf("%d%% wins\n", winPercentage);
     printf("Avg # bets: %d\n", avgBets);
+}
+
+int main(int argc, char *argv[]) {
+    if (argc < 4) {
+        printf("Usage: ./gambler <stake> <goal> <trials>\n");
+        return 1;
+    }
+
+    int stake = atoi(argv[1]);
+    int goal = atoi(argv[2]);
+    int trials = atoi(argv[3]);
+
+    runSimulation(stake, goal, trials);
 
     return 0;
 }

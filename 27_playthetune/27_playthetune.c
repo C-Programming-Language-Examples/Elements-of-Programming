@@ -1,5 +1,5 @@
 //----------------------------------------------------------------------
-// playthetune.c
+// 27_playthetune.c
 //----------------------------------------------------------------------
 
 #include <stdio.h>
@@ -11,7 +11,14 @@
 #define CONCERT_A 440.0     // Frequency of A4
 #define NOTES_ON_SCALE 12.0 // Number of notes in an octave
 
-// Audio stream callback function
+float* generateSoundWave(double hz, int n) {
+    float *note = (float*)malloc((n + 1) * sizeof(float));
+    for (int i = 0; i <= n; i++) {
+        note[i] = (float)sin(2.0 * M_PI * i * hz / SPS);
+    }
+    return note;
+}
+
 static int playCallback(const void *inputBuffer, void *outputBuffer,
                         unsigned long framesPerBuffer, const PaStreamCallbackTimeInfo* timeInfo,
                         PaStreamCallbackFlags statusFlags, void *userData) {
@@ -23,38 +30,40 @@ static int playCallback(const void *inputBuffer, void *outputBuffer,
     return paComplete;
 }
 
+void playSound(float *note, int n, float duration) {
+    PaStream *stream;
+    Pa_OpenDefaultStream(&stream, 0, 1, paFloat32, SPS, n + 1, playCallback, note);
+    Pa_StartStream(stream);
+    Pa_Sleep((int)(duration * 1000));  // Sleep while the sound is playing
+    Pa_StopStream(stream);
+    Pa_CloseStream(stream);
+}
+
+void initializePortAudio() {
+    Pa_Initialize();
+}
+
+void terminatePortAudio() {
+    Pa_Terminate();
+}
+
 int main(void) {
     int pitch;
     float duration;
 
-    Pa_Initialize();
+    initializePortAudio();
 
     while (scanf("%d %f", &pitch, &duration) == 2) {
         double hz = CONCERT_A * pow(2.0, pitch / NOTES_ON_SCALE);
         int n = (int)(SPS * duration);
 
-        // Generate the sound wave
-        float *note = (float*)malloc((n + 1) * sizeof(float));
-        for (int i = 0; i <= n; i++) {
-            note[i] = (float)sin(2.0 * M_PI * i * hz / SPS);
-        }
-
-        // Open audio stream
-        PaStream *stream;
-        Pa_OpenDefaultStream(&stream, 0, 1, paFloat32, SPS, n + 1, playCallback, note);
-        Pa_StartStream(stream);
-
-        // Wait until the stream has finished
-        Pa_Sleep((int)(duration * 1000));
-
-        Pa_StopStream(stream);
-        Pa_CloseStream(stream);
+        float *note = generateSoundWave(hz, n);
+        playSound(note, n, duration);
 
         free(note);
     }
 
-    Pa_Terminate();
-
+    terminatePortAudio();
     return 0;
 }
 

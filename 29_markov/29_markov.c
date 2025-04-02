@@ -1,45 +1,45 @@
+//----------------------------------------------------------------------
+// 29_transition.c
+//----------------------------------------------------------------------
+
 #include <stdio.h>
 #include <stdlib.h>
 
 #define FILENAME "tiny.txt"
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
-        return 1;
-    }
-
-    int moves = atoi(argv[1]);
-
-    FILE *file = fopen(FILENAME, "r");
+double** readTransitionMatrix(const char* filename, int* n) {
+    FILE *file = fopen(filename, "r");
     if (!file) {
-        fprintf(stderr, "Error: Could not open file %s\n", FILENAME);
-        return 1;
+        fprintf(stderr, "Error: Could not open file %s\n", filename);
+        exit(EXIT_FAILURE);
     }
 
-    int n;
-    fscanf(file, "%d", &n);
+    fscanf(file, "%d", n);
     int discard;
-    fscanf(file, "%d", &discard); // Discard the second int from input
+    fscanf(file, "%d", &discard);  // Discard the second integer
 
-    // Allocate memory for the transition matrix
-    double **probs = (double **)malloc(n * sizeof(double *));
-    for (int i = 0; i < n; i++) {
-        probs[i] = (double *)malloc(n * sizeof(double));
-    }
-
-    // Read the transition matrix from file
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    double **probs = (double **)malloc(*n * sizeof(double *));
+    for (int i = 0; i < *n; i++) {
+        probs[i] = (double *)malloc(*n * sizeof(double));
+        for (int j = 0; j < *n; j++) {
             fscanf(file, "%lf", &probs[i][j]);
         }
     }
     fclose(file);
+    return probs;
+}
 
+void freeTransitionMatrix(double **probs, int n) {
+    for (int i = 0; i < n; i++) {
+        free(probs[i]);
+    }
+    free(probs);
+}
+
+double* computePageRanks(double **probs, int n, int moves) {
     double *ranks = (double *)calloc(n, sizeof(double));
     ranks[0] = 1.0;
 
-    // Power method to compute page ranks
     for (int move = 0; move < moves; move++) {
         double *newRanks = (double *)calloc(n, sizeof(double));
         for (int j = 0; j < n; j++) {
@@ -47,21 +47,37 @@ int main(int argc, char *argv[]) {
                 newRanks[j] += ranks[k] * probs[k][j];
             }
         }
-        free(ranks); 
+        free(ranks);
         ranks = newRanks;
     }
+    return ranks;
+}
 
-    // Print the page ranks
+void printPageRanks(double *ranks, int n) {
     for (int i = 0; i < n; i++) {
         printf("%8.5f ", ranks[i]);
     }
     printf("\n");
+}
 
-    for (int i = 0; i < n; i++) {
-        free(probs[i]);
+int validateInput(int argc, char *argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <moves>\n", argv[0]);
+        exit(EXIT_FAILURE);
     }
-    free(probs);
+    return atoi(argv[1]);
+}
+
+int main(int argc, char *argv[]) {
+    int moves = validateInput(argc, argv);
+    int n;
+
+    double **probs = readTransitionMatrix(FILENAME, &n);
+    double *ranks = computePageRanks(probs, n, moves);
+    printPageRanks(ranks, n);
+
     free(ranks);
+    freeTransitionMatrix(probs, n);
 
     return 0;
 }
